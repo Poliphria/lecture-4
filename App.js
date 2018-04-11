@@ -5,7 +5,7 @@ import {Constants} from 'expo'
 import contacts from './contacts'
 
 const Row = props => (
-<View key={props.key}> 
+<View style={styles.contact}> 
   <Text>{props.name}</Text>
   <Text>{props.phone}</Text>
 </View>
@@ -27,7 +27,7 @@ export default class App extends React.Component {
         <Button title="toggle contacts" onPress={this.toggleContacts} />
         <ScrollView>
           {contacts.map(contact => (
-            <Row name={contact.name} key={contact.key} phone={contact.phone} />
+            <Row {...contact} />
           ))}
         </ScrollView> 
       </View>
@@ -42,5 +42,9 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingRight: 8,
     paddingLeft: 8
+  },
+  contact: {
+    padding: 8,
+    paddingBottom: 16
   }
 });
