@@ -3,13 +3,7 @@ import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-nati
 import {Constants} from 'expo'
 
 import contacts from './contacts'
-
-const Row = props => (
-<View style={styles.contact}> 
-  <Text>{props.name}</Text>
-  <Text>{props.phone}</Text>
-</View>
-)
+import Row from './Row'
 
 export default class App extends React.Component {
   state = {
@@ -42,9 +36,5 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingRight: 8,
     paddingLeft: 8
-  },
-  contact: {
-    padding: 8,
-    paddingBottom: 16
   }
 });
