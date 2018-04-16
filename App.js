@@ -14,16 +14,21 @@ export default class App extends React.Component {
     this.setState(prevState => ({showContacts: !prevState.showContacts}))
   }
 
+  sort = () => {
+    this.setState(prevState => ({contacts: prevState.contacts.sort(compareNames)}))
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
         <Button title="toggle contacts" onPress={this.toggleContacts} />
-        {this.state.showContacts && (<ScrollView>
-          {contacts.map(contact => (
-            <Row {...contact} />
-          ))}
-        </ScrollView>
+        <Button title="sort" onPress={this.sort}/>  
+        {this.state.showContacts && ( 
+         <FlatList 
+	    renderItem={this.renderItem}
+	    data={this.state.contacts} 
+	</
         )} 
       </View>
     );
@@ -37,5 +42,8 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingRight: 8,
     paddingLeft: 8
+  },
+  button: {
+    padding: 8
   }
 });
