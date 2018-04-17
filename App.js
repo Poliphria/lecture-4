@@ -3,7 +3,13 @@ import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-nati
 import {Constants} from 'expo'
 
 import contacts from './contacts'
-import Row from './Row'
+
+const Row = props => (
+<View key={props.key}> 
+  <Text>{props.name}</Text>
+  <Text>{props.phone}</Text>
+</View>
+)
 
 export default class App extends React.Component {
   state = {
@@ -14,22 +20,16 @@ export default class App extends React.Component {
     this.setState(prevState => ({showContacts: !prevState.showContacts}))
   }
 
-  sort = () => {
-    this.setState(prevState => ({contacts: prevState.contacts.sort(compareNames)}))
-  }
-
 
   render() {
     return (
       <View style={styles.container}>
         <Button title="toggle contacts" onPress={this.toggleContacts} />
-        <Button title="sort" onPress={this.sort}/>  
-        {this.state.showContacts && ( 
-         <FlatList 
-	    renderItem={this.renderItem}
-	    data={this.state.contacts} 
-	</
-        )} 
+        <ScrollView>
+          {contacts.map(contact => (
+            <Row name={contact.name} key={contact.key} phone={contact.phone} />
+          ))}
+        </ScrollView> 
       </View>
     );
   }
@@ -42,8 +42,5 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingRight: 8,
     paddingLeft: 8
-  },
-  button: {
-    padding: 8
   }
 });
