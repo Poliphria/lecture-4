@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import {Constants} from 'expo'
 
-import contacts from './contacts'
+import contacts, { compareNames } from './contacts'
 import Row from './Row.js'
 
 export default class App extends React.Component {
@@ -14,17 +14,18 @@ export default class App extends React.Component {
     this.setState(prevState => ({showContacts: !prevState.showContacts}))
   }
 
+  renderItem = (obj) => <Row {...obj.item}/>
 
   render() {
     return (
       <View style={styles.container}>
-        <Button title="toggle contacts" onPress={this.toggleContacts} />
+        <Button title='toggle contacts' onPress={this.toggleContacts} />
+        <Button title='sort' onPress={this.sort} />
         {this.state.showContacts && (
-        <ScrollView>
-        {contacts.map(contact => (
-          <Row {...contact}/>
-        ))}
-        </ScrollView>
+          <FlatList
+            renderItem={this.renderItem}
+            data={contacts}
+          />
         )}
       </View>
     );
