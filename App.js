@@ -3,13 +3,7 @@ import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-nati
 import {Constants} from 'expo'
 
 import contacts from './contacts'
-
-const Row = props => (
-<View key={props.key}> 
-  <Text>{props.name}</Text>
-  <Text>{props.phone}</Text>
-</View>
-)
+import Row from './Row.js'
 
 export default class App extends React.Component {
   state = {
@@ -26,9 +20,9 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Button title="toggle contacts" onPress={this.toggleContacts} />
         <ScrollView>
-          {contacts.map(contact => (
-            <Row name={contact.name} key={contact.key} phone={contact.phone} />
-          ))}
+        {contacts.map(contact => (
+          <Row {...contact}/>
+        ))}
         </ScrollView> 
       </View>
     );
