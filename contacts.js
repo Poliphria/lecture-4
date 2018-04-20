@@ -17,9 +17,20 @@ const generatePhoneNumber = () => `${rand(999, 100)}-${rand(999, 100)}-${rand(99
 const createContact = () => ({name: generateName(), phone: generatePhoneNumber()})
 
 // compare two contacts for alphabetizing
-export const compareNames = (contact1, contact2) => contact1.name > contact2.name
+export const compareNames = (contact1, contact2) => {
+    let name1 = contact1.name
+    let name2 = contact2.name
 
-// add keys to based on index
+    if (name1 < name2)
+        return -1
+    
+    else if (name1 > name2)
+        return 1
+    
+    return 0
+} 
+
+//add keys to based on index
 const addKeys = (val, key) => ({key, ...val})
 
 // create an array of length NUM_CONTACTS and add keys
