@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, ScrollView, StyleSheet, Text, View, SectionList } from 'react-native';
 import {Constants} from 'expo'
 
 import contacts, { compareNames } from './contacts'
-import Row from './Row'
+import ContactsList from './ContactsList';
 
 export default class App extends React.Component {
   state = {
@@ -14,8 +14,6 @@ export default class App extends React.Component {
   toggleContacts = () => {
     this.setState(prevState => ({showContacts: !prevState.showContacts}))
   }
-
-  renderItem = ({item}) => <Row {...item}/>
 
   sort = () => {
     this.setState(prevState => 
@@ -28,10 +26,7 @@ export default class App extends React.Component {
         <Button title='toggle contacts' onPress={this.toggleContacts}/>
         <Button title='sort' onPress={this.sort}/>
         {this.state.showContacts && (
-          <FlatList
-            renderItem={this.renderItem}
-            data={this.state.contacts}
-          />
+          <ContactsList contacts={this.state.contacts} />
         )}
       </View>
     );
